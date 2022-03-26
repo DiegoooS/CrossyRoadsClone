@@ -152,6 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83d5173ad6bde58458f5c972fea0182c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  crossyInput: {fileID: 759624845}
 --- !u!4 &375479300
 Transform:
   m_ObjectHideFlags: 0

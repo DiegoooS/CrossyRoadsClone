@@ -45,7 +45,7 @@ namespace CRC.Input
         {
             if (ctx.action.WasPerformedThisFrame())
             {
-                onMoveForward_Actions.Invoke();
+                onMoveForward_Actions?.Invoke();
             }
         }
 
@@ -53,14 +53,14 @@ namespace CRC.Input
         {
             if (ctx.action.WasPerformedThisFrame())
             {
-                onMoveBackward_Actions.Invoke();
+                onMoveBackward_Actions?.Invoke();
             }
         }
         public void OnMoveRight(InputAction.CallbackContext ctx)
         {
             if (ctx.action.WasPerformedThisFrame())
             {
-                onMoveRight_Actions.Invoke();
+                onMoveRight_Actions?.Invoke();
             }
         }
 
@@ -68,7 +68,7 @@ namespace CRC.Input
         {
             if (ctx.action.WasPerformedThisFrame())
             {
-                onMoveLeft_Actions.Invoke();
+                onMoveLeft_Actions?.Invoke();
             }
         }
     } 

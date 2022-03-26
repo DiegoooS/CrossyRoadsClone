@@ -1,14 +1,26 @@
+using CRC.Input;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CRC.Loop
 {
     public class MenuState : BaseState
     {
+        UnityAction transitionToGameState;
+        CrossyInput crossyInput;
+
+        public MenuState(UnityAction transitionToGameState, CrossyInput crossyInput)
+        {
+            this.transitionToGameState = transitionToGameState;
+            this.crossyInput = crossyInput;
+        }
+
+
         public override void InitState()
         {
-            Debug.Log("INIT MENU");
+            crossyInput.AddListenerOnClick(CrossyInputsValues.space, transitionToGameState);
         }
 
         public override void UpdateState()
@@ -18,7 +30,7 @@ namespace CRC.Loop
 
         public override void DisposeState()
         {
-            
+            crossyInput.ClearInputs();
         }
     } 
 }

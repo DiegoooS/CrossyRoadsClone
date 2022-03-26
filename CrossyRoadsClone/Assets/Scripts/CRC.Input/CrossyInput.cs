@@ -6,6 +6,15 @@ using UnityEngine.InputSystem;
 
 namespace CRC.Input
 {
+    public enum CrossyInputsValues
+    {
+        forward,
+        backward,
+        right,
+        left,
+        space
+    }
+
     public class CrossyInput : MonoBehaviour
     {
         [SerializeField]
@@ -16,26 +25,38 @@ namespace CRC.Input
         private UnityAction onMoveBackward_Actions;
         private UnityAction onMoveRight_Actions;
         private UnityAction onMoveLeft_Actions;
+        private UnityAction onSpaceClick_Actions;
 
         //2. Zdefiniowaæ metody umo¿lwiaj¹ce to podpiêcie
-        public void OnMoveForward_AddListener(UnityAction action)
+        public void AddListenerOnClick(CrossyInputsValues values, UnityAction action)
         {
-            onMoveForward_Actions += action;
+            switch (values)
+            {
+                case CrossyInputsValues.forward:
+                    onMoveForward_Actions += action;
+                    break;
+                case CrossyInputsValues.backward:
+                    onMoveBackward_Actions += action;
+                    break;
+                case CrossyInputsValues.right:
+                    onMoveRight_Actions += action;
+                    break;
+                case CrossyInputsValues.left:
+                    onMoveLeft_Actions += action;
+                    break;
+                case CrossyInputsValues.space:
+                    onSpaceClick_Actions += action;
+                    break;
+            }
         }
 
-        public void OnMoveBackward_AddListener(UnityAction action)
+        public void ClearInputs()
         {
-            onMoveBackward_Actions += action;
-        }
-
-        public void OnMoveRight_AddListener(UnityAction action)
-        {
-            onMoveRight_Actions += action;
-        }
-
-        public void OnMoveLeft_AddListener(UnityAction action)
-        {
-            onMoveLeft_Actions += action;
+            onMoveForward_Actions = null;
+            onMoveBackward_Actions = null;
+            onMoveLeft_Actions = null;
+            onMoveRight_Actions = null;
+            onSpaceClick_Actions = null;
         }
 
         //3. Wywo³aæ to coœ w momencie w któym dostaniemy input
@@ -69,6 +90,14 @@ namespace CRC.Input
             if (ctx.action.WasPerformedThisFrame())
             {
                 onMoveLeft_Actions?.Invoke();
+            }
+        }
+
+        public void OnSpaceClick(InputAction.CallbackContext ctx)
+        {
+            if (ctx.action.WasPerformedThisFrame())
+            {
+                onSpaceClick_Actions?.Invoke();
             }
         }
     } 

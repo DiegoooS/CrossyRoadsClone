@@ -2,13 +2,18 @@ using CRC.Input;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 namespace CRC.Loop
 {
     public class GameController : MonoBehaviour
     {
         #region STATES
+        private UnityAction transitionToGameState;
+
         private MenuState menuState;
+        private GameState gameState;
+
         private BaseState currentlyActiveState;
         #endregion
 
@@ -17,22 +22,11 @@ namespace CRC.Loop
         CrossyInput crossyInput;
         #endregion
 
-
-
         private void Start()
         {
+            CreateTransitions();
             CreateStates();
             ChangeState(menuState);
-
-            crossyInput.OnMoveForward_AddListener(Test);
-            crossyInput.OnMoveBackward_AddListener(Test);
-            crossyInput.OnMoveRight_AddListener(Test);
-            crossyInput.OnMoveLeft_AddListener(Test);
-        }
-
-        private void Test()
-        {
-            Debug.Log("TEST");
         }
 
         private void Update()
@@ -52,9 +46,15 @@ namespace CRC.Loop
             currentlyActiveState.InitState();
         }
 
+        private void CreateTransitions()
+        {
+            transitionToGameState += () => ChangeState(gameState);
+        }
+
         private void CreateStates()
         {
-            menuState = new MenuState();
+            gameState = new GameState();
+            menuState = new MenuState(transitionToGameState, crossyInput);
         }
     } 
 }

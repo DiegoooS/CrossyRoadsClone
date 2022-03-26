@@ -8,9 +8,10 @@ namespace CRC.Loop
     {
         #region STATES
         private MenuState menuState;
+        private BaseState currentlyActiveState;
         #endregion
 
-        private BaseState currentlyActiveState;
+
 
         private void Start()
         {

@@ -1,3 +1,4 @@
+using CRC.GUI;
 using CRC.Input;
 using System.Collections;
 using System.Collections.Generic;
@@ -10,16 +11,19 @@ namespace CRC.Loop
     {
         UnityAction transitionToGameState;
         CrossyInput crossyInput;
+        MenuView menuView;
 
-        public MenuState(UnityAction transitionToGameState, CrossyInput crossyInput)
+        public MenuState(UnityAction transitionToGameState, CrossyInput crossyInput, MenuView menuView)
         {
             this.transitionToGameState = transitionToGameState;
             this.crossyInput = crossyInput;
+            this.menuView = menuView;
         }
 
 
         public override void InitState()
         {
+            menuView?.ShowView();
             crossyInput.AddListenerOnClick(CrossyInputsValues.space, transitionToGameState);
         }
 
@@ -30,6 +34,8 @@ namespace CRC.Loop
 
         public override void DisposeState()
         {
+            if (menuView != null)
+                menuView?.HideView();
             crossyInput.ClearInputs();
         }
     } 

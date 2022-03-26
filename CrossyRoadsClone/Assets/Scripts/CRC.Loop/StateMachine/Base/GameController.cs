@@ -1,3 +1,4 @@
+using CRC.GUI;
 using CRC.Input;
 using System.Collections;
 using System.Collections.Generic;
@@ -15,6 +16,13 @@ namespace CRC.Loop
         private GameState gameState;
 
         private BaseState currentlyActiveState;
+        #endregion
+
+        #region VIEWS
+        [SerializeField]
+        private MenuView menuView;
+        [SerializeField]
+        private GameView gameView;
         #endregion
 
         #region INPUTS
@@ -53,8 +61,8 @@ namespace CRC.Loop
 
         private void CreateStates()
         {
-            gameState = new GameState();
-            menuState = new MenuState(transitionToGameState, crossyInput);
+            gameState = new GameState(gameView);
+            menuState = new MenuState(transitionToGameState, crossyInput, menuView);
         }
     } 
 }

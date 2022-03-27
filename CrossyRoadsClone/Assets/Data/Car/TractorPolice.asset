@@ -10,5 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 656165e2c8735734fa02cfd1d7ea7e00, type: 3}
-  m_Name: Car
+  m_Name: TractorPolice
   m_EditorClassIdentifier: 
+  prefab: {fileID: 5671666153105638557, guid: 3997acab1b1fe99479157e18259dae7c, type: 3}
+  baseSpeed: 2000

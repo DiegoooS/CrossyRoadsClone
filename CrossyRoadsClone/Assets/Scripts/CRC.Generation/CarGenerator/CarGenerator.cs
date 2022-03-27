@@ -1,3 +1,4 @@
+using CRC.Data;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -11,22 +12,19 @@ namespace CRC.Generation
         private GameObject spawnPoint1;
         [SerializeField]
         private GameObject spawnPoint2;
-        // refka do prefabu
-        [SerializeField]
-        private GameObject car;
 
+        // Lista z dostepnymi pojazdami scritpable
+        [SerializeField]
+        private CarData[] carsToSpawn;
 
         public void SpawnCar()
         {
-            // Instantiate
-            // Ustawi w pozycji
-            GameObject.Instantiate(car, spawnPoint2.transform.position, spawnPoint2.transform.rotation); 
-            // itd?? dafuq
-        }
+            // Zespawnuj losowy pojazd => Random.Range
+            int randomCarNumber = Random.Range(0, carsToSpawn.Length - 1);
+            var car = GameObject.Instantiate(carsToSpawn[randomCarNumber].Prefab, spawnPoint2.transform.position, spawnPoint2.transform.rotation);
+            car.transform.SetParent(spawnPoint2.transform.parent);
 
-        private void Start()
-        {
-            SpawnCar();
+            car.MoveCar(carsToSpawn[randomCarNumber].BaseSpeed);
         }
     } 
 }

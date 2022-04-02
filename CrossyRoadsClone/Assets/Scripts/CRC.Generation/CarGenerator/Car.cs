@@ -11,7 +11,6 @@ namespace CRC.Generation
 
         public void MoveCar(float moveForce)
         {
-            Debug.Log(moveForce);
             rigidBody.AddForce(transform.forward * moveForce * Time.fixedDeltaTime, ForceMode.Force);  
         }
     } 

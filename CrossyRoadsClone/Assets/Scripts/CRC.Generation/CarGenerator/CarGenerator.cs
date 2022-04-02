@@ -1,4 +1,5 @@
 using CRC.Data;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -17,12 +18,24 @@ namespace CRC.Generation
         [SerializeField]
         private CarData[] carsToSpawn;
 
-        public void SpawnCar()
+        public void SpawnCar(Transform parentTransform)
         {
             // Zespawnuj losowy pojazd => Random.Range
-            int randomCarNumber = Random.Range(0, carsToSpawn.Length - 1);
-            var car = GameObject.Instantiate(carsToSpawn[randomCarNumber].Prefab, spawnPoint2.transform.position, spawnPoint2.transform.rotation);
-            car.transform.SetParent(spawnPoint2.transform.parent);
+            int randomCarNumber = UnityEngine.Random.Range(0, carsToSpawn.Length - 1);
+            int randomDirection = UnityEngine.Random.Range(0, 2);
+
+            GameObject startPoint;
+            if (randomDirection == 0)
+            {
+                startPoint = spawnPoint1;
+            }
+            else
+            {
+                startPoint = spawnPoint2;
+            }
+
+            var car = GameObject.Instantiate(carsToSpawn[randomCarNumber].Prefab, startPoint.transform.position, startPoint.transform.rotation);
+            car.transform.SetParent(parentTransform);
 
             car.MoveCar(carsToSpawn[randomCarNumber].BaseSpeed);
         }
